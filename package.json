@@ -1,0 +1,26 @@
+{
+  "name": "sprk",
+  "version": "1.0.0",
+  "description": "Sphero stuff",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lacker/sprk.git"
+  },
+  "keywords": [
+    "sprk"
+  ],
+  "author": "Kevin Lacker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lacker/sprk/issues"
+  },
+  "homepage": "https://github.com/lacker/sprk#readme",
+  "dependencies": {
+    "cylon": "^1.2.0",
+    "cylon-sphero": "^0.23.0"
+  }
+}
