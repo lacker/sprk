@@ -2,6 +2,16 @@
 
 let Cylon = require('cylon');
 
+let going = true;
+
+function go() {
+  going = true;
+}
+
+function stop() {
+  going = false;
+}
+
 Cylon.robot({
   connections: {
     sphero: { adaptor: 'sphero', port: '/dev/tty.Sphero-POR-AMP-SPP' }
@@ -13,7 +23,17 @@ Cylon.robot({
 
   work: function(my) {
     every((1).second(), () => {
-      my.sphero.roll(60, Math.floor(Math.random() * 360));
+      if (going) {
+        // Go
+        my.sphero.roll(60, Math.floor(Math.random() * 360));
+      } else {
+        // Stop
+        my.sphero.roll(0, 0);
+      }
     });
   }
 }).start();
+
+console.log('started');
+
+// TODO: listen for voice, stop or go accordingly
