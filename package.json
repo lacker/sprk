@@ -4,6 +4,7 @@
   "description": "Sphero stuff",
   "main": "main.js",
   "scripts": {
+    "listen": "node listen.js",
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
