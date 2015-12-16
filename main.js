@@ -1,8 +1,7 @@
 'use strict';
 
+let rl = require('readline');
 let Cylon = require('cylon');
-
-let going = true;
 
 function go() {
   going = true;
@@ -23,17 +22,17 @@ Cylon.robot({
 
   work: function(my) {
     every((1).second(), () => {
-      if (going) {
-        // Go
-        my.sphero.roll(60, Math.floor(Math.random() * 360));
-      } else {
-        // Stop
-        my.sphero.roll(0, 0);
-      }
+      let dir = Math.floor(Math.random() * 360);
+      console.log('dir: ' + dir);
+      my.sphero.roll(10, dir);
     });
   }
 }).start();
 
 console.log('started');
 
-// TODO: listen for voice, stop or go accordingly
+var i = rl.createInterface(process.sdtin, process.stdout, null);
+i.on('line', (cmd) => {
+  console.log('cmd: ' + cmd);
+});
+
