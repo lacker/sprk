@@ -16,8 +16,6 @@ let zero = [range.map(x => 0)];
 let soft = [range.map(x => 2)];
 let loud = [range.map(x => 20)];
 
-let i = -1;
-
 function round(num) {
   let answer = Math.round(num);
   // Avoid annoying-looking negative zero
@@ -33,10 +31,11 @@ function get(buffer, i) {
 
 // Input seems to be a 1x24 matrix of numbers.
 // Returns the output buffer to play.
+let average = 0.0;
 function processAudio(input) {
-  i++;
-  console.log('----------------');
-  console.log(get(input, 0), get(input, 1), get(input, 2));
+  let delta = Math.abs(get(input, 0) + get(input, 1) + get(input, 2)) / 3;
+  average = 0.9 * average + 0.1 * delta;
+  console.log(average);
   return zero;
 }
  
