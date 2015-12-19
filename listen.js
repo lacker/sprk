@@ -30,13 +30,14 @@ function get(buffer, i) {
 }
 
 // Input seems to be a 1x24 matrix of numbers.
-// Returns the output buffer to play.
 let average = 0.0;
 function processAudio(input) {
   let delta = Math.abs(get(input, 0) + get(input, 1) + get(input, 2)) / 3;
   average = 0.9 * average + 0.1 * delta;
   console.log(average);
-  return zero;
 }
  
-engine.addAudioCallback(processAudio);
+while (true) {
+  let sample = engine.read();
+  processAudio(sample);
+}
