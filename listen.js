@@ -31,10 +31,20 @@ function get(buffer, i) {
 
 // Input seems to be a 1x24 matrix of numbers.
 let average = 0.0;
+let decay = 0.1;
+let upperThreshold = 3.0;
+let lowerThreshold = 2.0;
+let active = false;
 function processAudio(input) {
   let delta = Math.abs(get(input, 0) + get(input, 1) + get(input, 2)) / 3;
-  average = 0.9 * average + 0.1 * delta;
-  console.log(average);
+  average = (1 - decay) * average + decay * delta;
+  if (average > upperThreshold) {
+    active = true;
+  } else if (active && average < lowerThreshold) {
+    active = false;
+  }
+
+  console.log(active ? 'ON' : '--', '     ', average);
 }
  
 while (true) {
