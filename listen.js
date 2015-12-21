@@ -47,7 +47,10 @@ function processAudio(input) {
   console.log(active ? 'ON' : '--', '     ', average);
 }
  
-while (true) {
+function mainLoop() {
   let sample = engine.read();
   processAudio(sample);
+  process.nextTick(mainLoop);
 }
+
+mainLoop();
