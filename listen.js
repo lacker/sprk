@@ -29,28 +29,34 @@ function get(buffer, i) {
   return round(buffer[0][i] * 100);
 }
 
+let info = {
+  active: false,
+};
+
 // Input seems to be a 1x24 matrix of numbers.
 let average = 0.0;
 let decay = 0.1;
 let upperThreshold = 3.0;
 let lowerThreshold = 2.0;
-let active = false;
+
 function processAudio(input) {
   let delta = Math.abs(get(input, 0) + get(input, 1) + get(input, 2)) / 3;
   average = (1 - decay) * average + decay * delta;
   if (average > upperThreshold) {
-    active = true;
-  } else if (active && average < lowerThreshold) {
-    active = false;
+    info.active = true;
+  } else if (info.active && average < lowerThreshold) {
+    info.active = false;
   }
 
-  console.log(active ? 'ON' : '--', '     ', average);
+  console.log(info.active ? 'ON' : '--', '     ', average);
 }
  
 function mainLoop() {
   let sample = engine.read();
   processAudio(sample);
-  process.nextTick(mainLoop);
 }
 
-mainLoop();
+module.exports = {
+  info,
+  mainLoop,
+};

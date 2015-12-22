@@ -1,15 +1,8 @@
 'use strict';
 
-let rl = require('readline');
 let Cylon = require('cylon');
 
-function go() {
-  going = true;
-}
-
-function stop() {
-  going = false;
-}
+let listen = require('./listen');
 
 Cylon.robot({
   connections: {
@@ -21,18 +14,22 @@ Cylon.robot({
   },
 
   work: function(my) {
+    every((0.1).second(), () => {
+      listen.mainLoop();
+    });
+
     every((1).second(), () => {
-      let dir = Math.floor(Math.random() * 360);
-      console.log('dir: ' + dir);
-      my.sphero.roll(10, dir);
+      let amount = 0;
+      let dir = 0;
+      if (listen.info.active) {
+        amount = 50;
+        dir = Math.floor(Math.random() * 360);
+      }
+      console.log('work ' + amount + ' -> ' + dir);
+      my.sphero.roll(amount, dir);
     });
   }
 }).start();
 
 console.log('started');
-
-var i = rl.createInterface(process.sdtin, process.stdout, null);
-i.on('line', (cmd) => {
-  console.log('cmd: ' + cmd);
-});
 
