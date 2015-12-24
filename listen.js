@@ -51,12 +51,21 @@ function processAudio(input) {
   console.log(info.active ? 'ON' : '--', '     ', average);
 }
  
-function mainLoop() {
+function processSample() {
   let sample = engine.read();
   processAudio(sample);
 }
 
 module.exports = {
   info,
-  mainLoop,
+  processSample,
 };
+
+function main() {
+  processSample();
+  process.nextTick(main);
+}
+
+if (require.main === module) {
+  main();
+}

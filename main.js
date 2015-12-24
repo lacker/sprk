@@ -15,7 +15,7 @@ Cylon.robot({
 
   work: function(my) {
     every((0.1).second(), () => {
-      listen.mainLoop();
+      listen.processSample();
     });
 
     every((1).second(), () => {
