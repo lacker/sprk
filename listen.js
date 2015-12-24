@@ -62,7 +62,10 @@ module.exports = {
 };
 
 function main() {
+  let start = (new Date()).getTime();
   processSample();
+  let elapsed = (new Date()).getTime() - start;
+  console.log('processing took', elapsed, 'ms');
   process.nextTick(main);
 }
 
