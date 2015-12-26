@@ -25,8 +25,21 @@ function round(num) {
   return answer;
 }
 
+// Normalizes a bit. Maybe this is strange.
 function get(buffer, i) {
   return round(buffer[0][i] * 100);
+}
+
+// begin and end work like in STL - end is one past the end
+function average(buffer, begin, end) {
+  if (end <= begin) {
+    throw 'end <= begin';
+  }
+  let sum = 0.0;
+  for (let i = begin; i < end; i++) {
+    sum += buffer[0][i];
+  }
+  return sum / (end - begin);
 }
 
 let info = {
