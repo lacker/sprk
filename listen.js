@@ -42,6 +42,18 @@ function average(buffer, begin, end) {
   return sum / (end - begin);
 }
 
+// The sum of absolute values of this range of the vector.
+function L1(buffer, begin, end) {
+  if (end <= begin) {
+    throw 'end <= begin';
+  }
+  let answer = 0.0;
+  for (let i = begin; i < end; i++) {
+    answer += Math.abs(buffer[0][i]);
+  }
+  return answer;
+}
+
 let info = {
   active: false,
 };
