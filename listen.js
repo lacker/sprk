@@ -54,6 +54,18 @@ function L1(buffer, begin, end) {
   return answer;
 }
 
+// The average index that L1 weight is at. Kind of the "center of gravity"
+function cog(buffer, begin, end) {
+  let total = 0.0;
+  let weight = 0.0;
+  for (let i = begin; i < end; i++) {
+    let value = Math.abs(buffer[0][i]) + 0.000001;
+    weight += value;
+    total += i * value;
+  }
+  return total / value;
+}
+
 let info = {
   active: false,
 };
