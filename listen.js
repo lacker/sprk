@@ -87,7 +87,7 @@ function processAudio(input) {
 
   console.log(info.active ? 'ON' : '--', '     ', accum.toFixed(3),
              'L1', L1(input, 0, 1024).toFixed(3),
-             'cog', cog(input, 0, 1024).toFixed(1));
+             'cog', (cog(input, 0, 1024) / 100).toFixed(1));
 }
  
 function processSample() {
