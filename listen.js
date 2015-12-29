@@ -63,7 +63,7 @@ function cog(buffer, begin, end) {
     weight += value;
     total += i * value;
   }
-  return total / value;
+  return total / weight;
 }
 
 let info = {
@@ -71,21 +71,23 @@ let info = {
 };
 
 // Input seems to be a 1x24 matrix of numbers.
-let average = 0.0;
+let accum = 0.0;
 let decay = 0.1;
 let upperThreshold = 3.0;
 let lowerThreshold = 2.0;
 
 function processAudio(input) {
   let delta = Math.abs(get(input, 0) + get(input, 1) + get(input, 2)) / 3;
-  average = (1 - decay) * average + decay * delta;
-  if (average > upperThreshold) {
+  accum = (1 - decay) * accum + decay * delta;
+  if (accum > upperThreshold) {
     info.active = true;
-  } else if (info.active && average < lowerThreshold) {
+  } else if (info.active && accum < lowerThreshold) {
     info.active = false;
   }
 
-  console.log(info.active ? 'ON' : '--', '     ', average);
+  console.log(info.active ? 'ON' : '--', '     ', accum.toFixed(3),
+             'L1', L1(input, 0, 1024).toFixed(3),
+             'cog', cog(input, 0, 1024).toFixed(1));
 }
  
 function processSample() {
