@@ -85,9 +85,17 @@ function processAudio(input) {
     info.active = false;
   }
 
-  console.log(info.active ? 'ON' : '--', '     ', accum.toFixed(3),
-             'L1', L1(input, 0, 1024).toFixed(3),
-             'cog', (cog(input, 0, 1024) / 100).toFixed(1));
+  // Log amplitude in 8 chunks
+  console.log(info.active ? 'ON' : '--',
+              'A', L1(input, 0, 128).toFixed(0),
+              'B', L1(input, 128, 256).toFixed(0),
+              'C', L1(input, 256, 384).toFixed(0),
+              'D', L1(input, 384, 512).toFixed(0),
+              'E', L1(input, 512, 640).toFixed(0),
+              'F', L1(input, 640, 768).toFixed(0),
+              'G', L1(input, 768, 896).toFixed(0),
+              'H', L1(input, 896, 1024).toFixed(0),
+              '');
 }
  
 function processSample() {
