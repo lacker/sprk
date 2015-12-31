@@ -102,9 +102,12 @@ module.exports = {
 
 function main() {
   let start = (new Date()).getTime();
-  processSample();
+  let frames = 20;
+  for (let i = 0; i < frames; i++) {
+    processSample();
+  }
   let elapsed = (new Date()).getTime() - start;
-  console.log('processing took', elapsed, 'ms');
+  console.log('processing', frames, 'frames took', elapsed, 'ms');
   process.nextTick(main);
 }
 
