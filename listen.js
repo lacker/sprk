@@ -66,6 +66,22 @@ function cog(buffer, begin, end) {
   return total / weight;
 }
 
+// Second moment kind of - RMS of diff from avg
+function noiseLevel(buffer, begin, end) {
+  let mean = 0;
+  for (let i = begin; i < end; i++) {
+    mean += buffer[0][i];
+  }
+  mean /= (end - begin);
+  
+  let squareSum = 0;
+  for (let i = begin; i < end; i++) {
+    let diff = buffer[0][i] - mean;
+    squareSum += diff * diff;
+  }
+  return Math.sqrt(squareSum / (end - begin));
+}
+
 let info = {
   active: false,
 };
